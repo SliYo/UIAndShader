@@ -30,9 +30,10 @@ namespace GFramework
             if (radius > (v.z - v.x) / 2) radius = (v.z - v.x) / 2;
             if (radius > (v.w - v.y) / 2) radius = (v.w - v.y) / 2;
             if (radius < 0) radius = 0;
-            //计算出uv中对应的半径值坐标轴的半径
-            float uvRadiusX = radius / (v.z - v.x);
-            float uvRadiusY = radius / (v.w - v.y);
+
+            //计算出uv中对应的半径值坐标轴的半径,这里应该考虑图集的问题，用比例计算
+            float uvRadiusX = radius * (uv.z - uv.x / v.z - v.x);
+            float uvRadiusY = radius * (uv.w - uv.y / v.w - v.y);
 
             //0，1
             vh.AddVert(new Vector3(v.x, v.w - radius), color32, new Vector2(uv.x, uv.w - uvRadiusY));
